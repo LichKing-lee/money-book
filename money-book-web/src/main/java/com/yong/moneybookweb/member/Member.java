@@ -26,12 +26,12 @@ public class Member extends BaseEntity {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private MemberRole memberRole;
+    private MemberRole role;
 
     public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.memberRole = MemberRole.MEMBER;
+        this.role = MemberRole.MEMBER;
     }
 }

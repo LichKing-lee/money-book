@@ -1,7 +1,7 @@
 package com.yong.moneybookweb.common.exception.handler;
 
-import java.util.Objects;
 import com.yong.moneybookweb.common.exception.ErrorCode;
+import com.yong.moneybookweb.common.exception.MoneyBookException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +15,26 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class MoneyBookExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handle(MethodArgumentNotValidException e) {
-        var result = new ApiErrorResult(ErrorCode.INVALID_PARAMETER, e.getBindingResult().getFieldError().getDefaultMessage());
+    public ResponseEntity<?> methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e) {
+        ErrorCode errorCode = ErrorCode.INVALID_PARAMETER;
+        var result = new ApiErrorResult(errorCode,
+                e.getBindingResult().getFieldError().getDefaultMessage());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(errorCode.getStatus())
+                .body(result);
+    }
+
+    @ExceptionHandler(MoneyBookException.class)
+    public ResponseEntity<?> moneyBookExceptionHandle(MoneyBookException e) {
+        if(e.getLogMessage() != null) {
+            log.error(e.getLogMessage());
+        } else {
+            log.error("Occurred exception", e);
+        }
+
+        var result = new ApiErrorResult(e.getErrorCode(), e.getMessage());
+
+        return ResponseEntity.status(e.getErrorCode().getStatus())
                 .body(result);
     }
 
