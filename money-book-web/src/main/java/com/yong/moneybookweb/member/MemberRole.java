@@ -1,5 +1,5 @@
 package com.yong.moneybookweb.member;
 
-public enum Role {
+public enum MemberRole {
     MEMBER, ADMIN
 }

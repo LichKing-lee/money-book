@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "member")
+@Table(name = "member", indexes = @Index(columnList = "member_email", unique = true))
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
@@ -26,11 +26,12 @@ public class Member extends BaseEntity {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private MemberRole memberRole;
 
     public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.memberRole = MemberRole.MEMBER;
     }
 }
