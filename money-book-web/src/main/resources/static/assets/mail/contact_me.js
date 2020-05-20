@@ -10,8 +10,7 @@ $(function() {
       // get values from FORM
       var name = $("input#name").val();
       var email = $("input#email").val();
-      var phone = $("input#phone").val();
-      var message = $("textarea#message").val();
+      var password = $("input#password").val();
       var firstName = name; // For Success/Failure Message
       // Check for white space in name for Success/Fail message
       if (firstName.indexOf(' ') >= 0) {
@@ -20,26 +19,19 @@ $(function() {
       $this = $("#sendMessageButton");
       $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
       $.ajax({
-        url: "contact_me.php",
+        url: "/members/sign-up",
+        contentType: "application/json",
         type: "POST",
-        data: {
+        data: JSON.stringify({
           name: name,
-          phone: phone,
-          email: email,
-          message: message
-        },
+          password: password,
+          email: email
+        }),
         cache: false,
         success: function() {
           // Success message
-          $('#success').html("<div class='alert alert-success'>");
-          $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-            .append("</button>");
-          $('#success > .alert-success')
-            .append("<strong>Your message has been sent. </strong>");
-          $('#success > .alert-success')
-            .append('</div>');
-          //clear all fields
-          $('#contactForm').trigger("reset");
+          alert("가입이 완료되었습니다.");
+          window.location = "/";
         },
         error: function() {
           // Fail message
