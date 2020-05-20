@@ -1,8 +1,9 @@
 package com.yong.moneybookweb.member.dto;
 
 import javax.validation.constraints.NotEmpty;
-import com.yong.moneybookweb.member.Member;
+import com.yong.moneybookweb.member.entity.Member;
 import lombok.Data;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Data
 public class MemberRequest {
@@ -15,5 +16,9 @@ public class MemberRequest {
 
     public Member toMember() {
         return new Member(name, email, password);
+    }
+
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        password = passwordEncoder.encode(password);
     }
 }

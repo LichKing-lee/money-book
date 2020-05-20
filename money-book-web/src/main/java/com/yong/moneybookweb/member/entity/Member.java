@@ -1,4 +1,4 @@
-package com.yong.moneybookweb.member;
+package com.yong.moneybookweb.member.entity;
 
 import javax.persistence.*;
 import com.yong.moneybookweb.common.entity.BaseEntity;

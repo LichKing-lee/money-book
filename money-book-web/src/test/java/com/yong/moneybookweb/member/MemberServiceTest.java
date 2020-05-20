@@ -3,6 +3,7 @@ package com.yong.moneybookweb.member;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.yong.moneybookweb.member.dto.MemberRequest;
+import com.yong.moneybookweb.member.entity.Member;
 import com.yong.moneybookweb.member.exception.MemberDuplicatedException;
 import com.yong.moneybookweb.member.exception.MemberNotFoundException;
 import org.junit.jupiter.api.Test;

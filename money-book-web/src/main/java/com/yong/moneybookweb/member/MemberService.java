@@ -1,6 +1,7 @@
 package com.yong.moneybookweb.member;
 
 import java.util.Optional;
+import com.yong.moneybookweb.member.entity.Member;
 import com.yong.moneybookweb.member.exception.MemberDuplicatedException;
 import com.yong.moneybookweb.member.exception.MemberNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,10 @@ public class MemberService {
     @Transactional(readOnly = true)
     public Member findMember(Long memberId) {
         return memberRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException(memberId));
+    }
+
+    @Transactional(readOnly = true)
+    public Member findMember(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(() -> new MemberNotFoundException(email));
     }
 }
